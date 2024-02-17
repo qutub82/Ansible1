@@ -1,5 +1,5 @@
 - name: Delete file in Dynatrace server
-  hosts: my_hosts
+  hosts: all
   become: yes
 
   tasks:
