@@ -1,0 +1,19 @@
+- name: Delete file in Dynatrace server
+  hosts: my_hosts
+  become: yes
+
+  tasks:
+          - name: Remove file from path /home/azureuser
+            file:
+                    path: /home/azureuser/q1.txt
+                    state: absent
+
+          - name: Add Message to file
+            copy:
+                    content: "Welcome to Automation"
+                    dest: /home/azureuser/log.txt
+
+          - name: Start the Apache server
+            service:
+                     name: apache2
+                     state: started
