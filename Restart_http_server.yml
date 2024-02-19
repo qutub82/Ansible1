@@ -25,5 +25,5 @@
               msg: "HTTP server is {{'up' if result.status == 200 else 'down'}}"
 
           - name: Restart HTTP server if it is down
-            command: systemctl restart httpd
+            command: sudo systemctl restart apache2
             when: result.status != 200
