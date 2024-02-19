@@ -1,0 +1,29 @@
+- name: Delete file in Dynatrace server
+  hosts: all
+  become: yes
+
+  tasks:
+          - name: Remove file from path /home/azureuser
+            file:
+                    path: /home/azureuser/q1.txt
+                    state: absent
+
+          - name: Add Message to file
+            copy:
+                    content: "Welcome to Automation"
+                    dest: /home/azureuser/log.txt
+
+          - name: Check if HTTP server is up
+            uri:
+              url: http://172.172.243.139/
+              method: GET
+            register: result
+            ignore_errors: yes
+          
+          - name: Print Result
+            debug:
+              msg: "HTTP server is {{'up' if result.status == 200 else 'down'}}"
+
+          - name: Restart HTTP server if it is down
+            command: systemctl restart httpd
+            when: result.status != 200
