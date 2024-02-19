@@ -3,15 +3,14 @@
   become: yes
 
   tasks:
-          - name: Remove file from path /home/azureuser
-            file:
-                    path: /home/azureuser/q1.txt
-                    state: absent
+          - name: Get the current timestamp
+            set_fact:
+              timestamp: "{{ lookup('pipe', 'date +%Y-%m-%d_%H:%M:%S')}}
 
           - name: Append Message to file
             lineinfile:
               path: /home/azureuser/log.txt
-              line: "Ansible tower connected - `date`"
+              line: "{{timestamp}} - Ansible tower connected"
               insertafter: EOF
 
           - name: Check if HTTP server is up
