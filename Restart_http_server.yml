@@ -1,16 +1,16 @@
-- name: Delete file in Dynatrace server
+- name: Restart the HTTP server in application host
   hosts: all
   become: yes
 
   tasks:
           - name: Get the current timestamp
             set_fact:
-              timestamp: "{{ lookup('pipe', 'date +%Y-%m-%d_%H:%M:%S')}}
+              timestamp: "{{ lookup('pipe', 'date +%Y-%m-%d_%H:%M:%S') }}"
 
           - name: Append Message to file
             lineinfile:
               path: /home/azureuser/log.txt
-              line: "{{timestamp}} - Ansible tower connected"
+              line: "{{ timestamp }} - Ansible tower connected"
               insertafter: EOF
 
           - name: Check if HTTP server is up
