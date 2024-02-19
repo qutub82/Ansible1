@@ -8,10 +8,11 @@
                     path: /home/azureuser/q1.txt
                     state: absent
 
-          - name: Add Message to file
-            copy:
-                    content: "Welcome to Automation"
-                    dest: /home/azureuser/log.txt
+          - name: Append Message to file
+            lineinfile:
+              path: /home/azureuser/log.txt
+              line: "Ansible tower connected - `date`"
+              insertafter: EOF
 
           - name: Check if HTTP server is up
             uri:
